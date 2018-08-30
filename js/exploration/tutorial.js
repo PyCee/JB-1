@@ -20,11 +20,18 @@ var Tutorial = {
 		     new Animation("ground", Sprite.black), 1,
 		     function(){}, -1, [
 			 new Collision_Box(new Vector(TUTORIAL_WIDTH, 0.3),
-					     new Vector(0.0, 0.0), [1])
-		     ])
+					     new Vector(0.0, 0.0), [-1])
+             ]),
+    tut: new Enemy(new Vector(3.0, TUTORIAL_HEIGHT - 1.7),
+                new Vector(1.0, 1.0), new Animation("en", Sprite.blue),
+                1, function(){}, 1, [
+                    new Collision_Box(new Vector(1.0, 1.0),
+                            new Vector(0.0, 0.0), [-1])
+                ])
 };
 
 Tutorial.map.set_actors([
-    Jeron,
-    Tutorial.floor
+    jeron,
+    Tutorial.floor,
+    Tutorial.tut
 ]);

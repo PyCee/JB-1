@@ -42,6 +42,7 @@ var exploration = {
 	for(var i = 0; i < exploration.map.events.length; ++i){
 	    exploration.map.events[i].test();
 	}
+	Check_Bits();
     }),
     set_map: function (map) {
 	exploration.map = map;
@@ -50,37 +51,38 @@ var exploration = {
     // Reference to the data that makes up the current map
     map: null
 };
-var Jeron = new Actor(new Vector(0.0, 0.0), new Vector(0.6, 1.0),
-		      new Animation("jeron", Sprite.red), 1,
-		      function(){}, 1,
-		      collision_boxes=[
-			  new Collision_Box(new Vector(0.6, 1.0),
-					    new Vector(0.0, 0.0),
-					    block_layers=[-1])
-		      ]);
-var JERON_MOVE_SPEED = 2.0 * Jeron.physics_state.mass;
+var jeron = new Jeron(new Vector(0.0, 0.0));
+var JERON_MOVE_SPEED = 2.0 * jeron.physics_state.mass;
 var JERON_JUMP_POWER = 3.5;
 var JERON_JUMP_FORCE = 5.0;
 
 // Add basic control for exploration
 exploration.scene.user_input.add_keyboard_event("a", "press", function(){
-	Jeron.physics_state.impulse_momentum(new Vector(-1.0 * JERON_MOVE_SPEED, 0.0));
+	jeron.physics_state.impulse_momentum(new Vector(-1.0 * JERON_MOVE_SPEED, 0.0));
 }, true);
 exploration.scene.user_input.add_keyboard_event("a", "release", function(){
-	Jeron.physics_state.impulse_momentum(new Vector(1.0 * JERON_MOVE_SPEED, 0.0));
+	jeron.physics_state.impulse_momentum(new Vector(1.0 * JERON_MOVE_SPEED, 0.0));
 });
 exploration.scene.user_input.add_keyboard_event("d", "press", function(){
-	Jeron.physics_state.impulse_momentum(new Vector(1.0 * JERON_MOVE_SPEED, 0.0));
+	jeron.physics_state.impulse_momentum(new Vector(1.0 * JERON_MOVE_SPEED, 0.0));
 }, true);
 exploration.scene.user_input.add_keyboard_event("d", "release", function(){
-	Jeron.physics_state.impulse_momentum(new Vector(-1.0 * JERON_MOVE_SPEED, 0.0));
+	jeron.physics_state.impulse_momentum(new Vector(-1.0 * JERON_MOVE_SPEED, 0.0));
 });
+exploration.scene.user_input.add_keyboard_event("e", "press", function(){
+	jeron.write_binary();
+});
+var jumped = false;
 exploration.scene.user_input.add_keyboard_event(" ", "press", function(){
-	if(Jeron.physics_state.is_grounded()){
-		Jeron.physics_state.impulse_momentum(new Vector(0.0, -1.0 * JERON_JUMP_POWER));
-		Jeron.physics_state.impulse_force(new Vector(0.0, -1.0 * JERON_JUMP_FORCE));
+	if(jeron.physics_state.is_grounded()){
+		jumped = true;
+		jeron.physics_state.impulse_momentum(new Vector(0.0, -1.0 * JERON_JUMP_POWER));
+		jeron.physics_state.impulse_force(new Vector(0.0, -1.0 * JERON_JUMP_FORCE));
 	}
 });
 exploration.scene.user_input.add_keyboard_event(" ", "release", function(){
-	Jeron.physics_state.impulse_force(new Vector(0.0, JERON_JUMP_FORCE));
+	if(jumped == true){
+		jumped = false;
+		jeron.physics_state.impulse_force(new Vector(0.0, JERON_JUMP_FORCE));
+	}
 });

@@ -21,20 +21,8 @@ var Sprite = {
     red: new Spritemap("red.png"),
     green: new Spritemap("green.png"),
     blue: new Spritemap("blue.png"),
-    power_cube: new Spritemap("power_cube.png"),
-    arena_background: new Spritemap("arena_bg.png"),
-    blue_goal: new Spritemap("blue_goal.png"),
-    red_goal: new Spritemap("red_goal.png"),
     arrow: new Spritemap("arrow.png"),
-    portal: new Spritemap("portal.png"),
-    spinny: new Spritemap("spinny.png", 2, 1),
-    upchuck: new Spritemap("upchuck.png", 2, 1),
-    arcade_move: new Spritemap("arcade_move.png"),
-    arcade_pickup: new Spritemap("arcade_pickup.png"),
-    arcade_place: new Spritemap("arcade_place.png"),
-    arcade_launch: new Spritemap("arcade_launch.png"),
-    arcade_pickup_example: new Spritemap("arcade_pickup_example.png"),
-    arcade_place_example: new Spritemap("arcade_place_example.png"),
-    arcade_launch_example: new Spritemap("arcade_launch_example.png")
+    zero: new Spritemap("zero.png"),
+    one: new Spritemap("one.png")
     //: new Spritemap(".png")
 };

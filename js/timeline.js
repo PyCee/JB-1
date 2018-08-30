@@ -5,10 +5,10 @@ function Update_Timelines (delta_s) {
     }
 }
 class Timeline {
-    constructor (active=true) {
-	    // Elapsed time in seconds
-	    this.elapsed_time = 0.0;
-	    this.active = active;
+    constructor (active=true, start_time=0.0) {
+        // Elapsed time in seconds
+	    this.active = active;        
+	    this.elapsed_time = start_time;
         this.timers = [];
         timeline_list.push(this);
     }

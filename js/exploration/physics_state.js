@@ -310,11 +310,5 @@ class Physics_State {
 		if(update_y_position){
 			this.last_position.y = this.position.y;
 		}
-		/*
-		if(Math.abs(this.velocity.y) > 0.1){
-			this.grounded = false;
-		} else{
-			this.grounded = true;
-		}*/
 	}
 }
