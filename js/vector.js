@@ -18,12 +18,15 @@ class Vector {
     dot (vector) {
         return this.x * vector.x + this.y * vector.y;
     }
+    magnitude () {
+        return Math.sqrt(this.dot(this));
+    }
     normalize () {
-        var magnitude = this.dot(this);
-        if(magnitude == 0.0){
+        var sq_magnitude = this.dot(this);
+        if(sq_magnitude == 0.0){
             return this;
         } else {
-            return this.scale(Math.sqrt(magnitude));
+            return this.scale(1.0 / Math.sqrt(sq_magnitude));
         }
     }
     str () {

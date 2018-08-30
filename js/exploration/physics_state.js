@@ -16,7 +16,10 @@ class Physics_State {
         this.acceleration = new Vector(0.0, 0.0);
         this.velocity = new Vector(0.0, 0.0);
 		this.friction_sources = [];
-		this.grounded = true;
+
+		this.falling = false;
+		this.on_fall = [];
+		this.on_land = [];
 
 		this.backup_mass = this.mass;
 		this.backup_acceleration = new Vector(0.0, 0.0);
@@ -78,7 +81,7 @@ class Physics_State {
 		this.last_position = position.clone();
 	}
 	is_movable () {return this.mass != -1;}
-	is_grounded () {return this.grounded;}
+	in_free_fall () {return this.falling;}
     get_force () {return this.acceleration.scale(this.mass);}
 	impulse_force (force) {
 		this.acceleration = this.acceleration.add(force.scale(1.0 / this.mass));
@@ -86,6 +89,20 @@ class Physics_State {
 	get_momentum () {return this.velocity.scale(this.mass);}
 	impulse_momentum (momentum) {
 		this.velocity = this.velocity.add(momentum.scale(1.0 / this.mass));
+	}
+	add_fall_callback(callback){this.on_fall.push(callback);}
+	add_land_callback(callback){this.on_land.push(callback);}
+	fall () {
+		for(var i = 0; i < this.on_fall.length; ++i){
+			this.on_fall[i]();
+		}
+		this.on_fall = [];
+	}
+	land () {
+		for(var i = 0; i < this.on_land.length; ++i){
+			this.on_land[i]();
+		}
+		this.on_land = [];
 	}
     step_x (delta_s) {
 		if(!this.is_movable()){return;}
@@ -120,8 +137,9 @@ class Physics_State {
 		this.set_position(new Vector(this.position.x, 
 			this.last_position.y + this.velocity.y * delta_s));
 
-		if(Math.abs(this.velocity.y) > 0.1){
-			this.grounded = false;
+		if(Math.abs(this.velocity.y) > 1.0 && !this.in_free_fall()){
+			this.falling = true;
+			this.fall();
 		}
     }
 	intersects (phsyics_state) {
@@ -218,7 +236,10 @@ class Physics_State {
 							momentum_handle_switch = COLLISION_BOX_STATE.VERTICAL;
 
 							// Set this physics_state to be grounded
-							this.grounded = true;
+							if(this.in_free_fall()){
+								this.falling = false;
+								this.land();
+							}
 							break;
 						case COLLISION_BOX_STATE.BELOW:
 							// Position this below the collision_box
@@ -257,7 +278,6 @@ class Physics_State {
 							break;
 						}
 						
-						/* uncomment for friction
 						// Setup friction between the two physics_states
 						var frict_diff = this.velocity.subtract(physics_state.velocity);
 
@@ -272,7 +292,7 @@ class Physics_State {
 							this.add_friction_source(this_friction_source);
 							physics_state.add_friction_source(physics_state_friction_source);
 						}
-						*/
+						
 					}
 				}
 			}

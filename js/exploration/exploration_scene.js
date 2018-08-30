@@ -52,32 +52,61 @@ var exploration = {
     map: null
 };
 var jeron = new Jeron(new Vector(0.0, 0.0));
-var JERON_MOVE_SPEED = 2.0 * jeron.physics_state.mass;
+var JERON_MOVE_SPEED = 10.0 * jeron.physics_state.mass;
 var JERON_JUMP_POWER = 3.5;
 var JERON_JUMP_FORCE = 5.0;
 
 // Add basic control for exploration
+
+/*make controls work after jump finishes if changed during jump*/
+function move_left(){
+	jeron.physics_state.impulse_force(new Vector(-1.0 * JERON_MOVE_SPEED, 0.0));
+}
+function move_right(){
+	jeron.physics_state.impulse_force(new Vector(JERON_MOVE_SPEED, 0.0));
+}
 exploration.scene.user_input.add_keyboard_event("a", "press", function(){
-	jeron.physics_state.impulse_momentum(new Vector(-1.0 * JERON_MOVE_SPEED, 0.0));
+	if(!jeron.physics_state.in_free_fall()){
+		move_left();
+	} else {
+		jeron.physics_state.add_land_callback(move_left);
+	}
 }, true);
 exploration.scene.user_input.add_keyboard_event("a", "release", function(){
-	jeron.physics_state.impulse_momentum(new Vector(1.0 * JERON_MOVE_SPEED, 0.0));
+	if(!jeron.physics_state.in_free_fall()){
+		move_right();
+	} else {
+		jeron.physics_state.add_land_callback(move_right);
+	}
 });
 exploration.scene.user_input.add_keyboard_event("d", "press", function(){
-	jeron.physics_state.impulse_momentum(new Vector(1.0 * JERON_MOVE_SPEED, 0.0));
+	if(!jeron.physics_state.in_free_fall()){
+		move_right();
+	} else {
+		jeron.physics_state.add_land_callback(move_right);
+	}
 }, true);
 exploration.scene.user_input.add_keyboard_event("d", "release", function(){
-	jeron.physics_state.impulse_momentum(new Vector(-1.0 * JERON_MOVE_SPEED, 0.0));
+	if(!jeron.physics_state.in_free_fall()){
+		move_left();
+	} else {
+		jeron.physics_state.add_land_callback(move_left);
+	}
 });
 exploration.scene.user_input.add_keyboard_event("e", "press", function(){
 	jeron.write_binary();
 });
 var jumped = false;
+var pre_jump_x_force = 0.0;
 exploration.scene.user_input.add_keyboard_event(" ", "press", function(){
-	if(jeron.physics_state.is_grounded()){
+	if(!jeron.physics_state.in_free_fall()){
+		pre_jump_x_force = jeron.physics_state.get_force().x;
 		jumped = true;
 		jeron.physics_state.impulse_momentum(new Vector(0.0, -1.0 * JERON_JUMP_POWER));
-		jeron.physics_state.impulse_force(new Vector(0.0, -1.0 * JERON_JUMP_FORCE));
+		jeron.physics_state.impulse_force(new Vector(-1.0 * pre_jump_x_force, -1.0 * JERON_JUMP_FORCE));
+		jeron.physics_state.add_land_callback(function(){
+			jeron.physics_state.impulse_force(new Vector(pre_jump_x_force, 0.0));
+		});
 	}
 });
 exploration.scene.user_input.add_keyboard_event(" ", "release", function(){

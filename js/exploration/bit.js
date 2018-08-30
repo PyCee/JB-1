@@ -28,8 +28,8 @@ class Bit extends Actor {
         super(position, new Vector(0.3, 0.3),
             new Animation("bit", possible_sprites[bit_sign]), 1,
             function(delta_s){}, 1.0, [
-                new Collision_Box(new Vector(0.3, 0.3),
-                    new Vector(0.0, 0.0), [])
+                new Collision_Box(new Vector(0.1, 0.3),
+                    new Vector(0.1, 0.0), [])
             ]);
         bit_list.push(this);
         this.impulse_force(new Vector(0.0, -FORCE_DUE_TO_GRAVITY));
