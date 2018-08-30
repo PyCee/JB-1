@@ -6,7 +6,7 @@ main {
     height: auto;
 }
 canvas {
-    background-color: hsla(135, 50%, 20%, 1.0);
+    background-color: #111111;
 }
 p {
     font-size: 18px;

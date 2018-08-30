@@ -16,6 +16,7 @@ class Physics_State {
         this.acceleration = new Vector(0.0, 0.0);
         this.velocity = new Vector(0.0, 0.0);
 		this.friction_sources = [];
+		this.grounded = true;
 
 		this.backup_mass = this.mass;
 		this.backup_acceleration = new Vector(0.0, 0.0);
@@ -76,7 +77,8 @@ class Physics_State {
 		this.set_position(position);
 		this.last_position = position.clone();
 	}
-    is_movable () {return this.mass != -1;}
+	is_movable () {return this.mass != -1;}
+	is_grounded () {return this.grounded;}
     get_force () {return this.acceleration.scale(this.mass);}
 	impulse_force (force) {
 		this.acceleration = this.acceleration.add(force.scale(1.0 / this.mass));
@@ -117,6 +119,10 @@ class Physics_State {
 		// 	this.last_position.y + this.velocity.y * delta_s));
 		this.set_position(new Vector(this.position.x, 
 			this.last_position.y + this.velocity.y * delta_s));
+
+		if(Math.abs(this.velocity.y) > 0.1){
+			this.grounded = false;
+		}
     }
 	intersects (phsyics_state) {
 		for(var i = 0; i < this.collision_boxes.length; ++i){
@@ -210,6 +216,9 @@ class Physics_State {
 							this.set_position(new Vector(this.position.x,
 								-1.0 * this.get_collision_box(i).offset.y + offset));
 							momentum_handle_switch = COLLISION_BOX_STATE.VERTICAL;
+
+							// Set this physics_state to be grounded
+							this.grounded = true;
 							break;
 						case COLLISION_BOX_STATE.BELOW:
 							// Position this below the collision_box
@@ -247,7 +256,8 @@ class Physics_State {
 							Add_Debug_String("momentum_handle_switch value not recognized");
 							break;
 						}
-
+						
+						/* uncomment for friction
 						// Setup friction between the two physics_states
 						var frict_diff = this.velocity.subtract(physics_state.velocity);
 
@@ -262,6 +272,7 @@ class Physics_State {
 							this.add_friction_source(this_friction_source);
 							physics_state.add_friction_source(physics_state_friction_source);
 						}
+						*/
 					}
 				}
 			}
@@ -299,5 +310,11 @@ class Physics_State {
 		if(update_y_position){
 			this.last_position.y = this.position.y;
 		}
+		/*
+		if(Math.abs(this.velocity.y) > 0.1){
+			this.grounded = false;
+		} else{
+			this.grounded = true;
+		}*/
 	}
 }
