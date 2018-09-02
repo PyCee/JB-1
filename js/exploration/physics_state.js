@@ -21,6 +21,8 @@ class Physics_State {
 		this.on_fall = [];
 		this.on_land = [];
 
+		this.pre_fall_x_force = 0.0;
+
 		this.backup_mass = this.mass;
 		this.backup_acceleration = new Vector(0.0, 0.0);
 		this.backup_velocity = new Vector(0.0, 0.0);
@@ -97,12 +99,16 @@ class Physics_State {
 			this.on_fall[i]();
 		}
 		this.on_fall = [];
+		this.pre_fall_x_force = this.get_force().x;
+		this.impulse_force(new Vector(-1.0 * this.pre_fall_x_force, 0.0));
 	}
 	land () {
 		for(var i = 0; i < this.on_land.length; ++i){
 			this.on_land[i]();
 		}
 		this.on_land = [];
+		this.impulse_force(new Vector(this.pre_fall_x_force, 0.0));
+		this.pre_fall_x_force = 0.0;
 	}
     step_x (delta_s) {
 		if(!this.is_movable()){return;}
@@ -254,15 +260,18 @@ class Physics_State {
 							Add_Debug_String("intersection_switch value not recognized");
 							break;
 						}
+						
 						switch(momentum_handle_switch){
 						case COLLISION_BOX_STATE.HORIZONTAL:
 							// Handle momentum on the x-axis
 							// Zero out momentum on the x-axis
+							/*
 							this.impulse_momentum(new Vector(-1.0 * this.get_momentum().x, 0.0));
 							physics_state.impulse_momentum(new Vector(-1.0 * physics_state.get_momentum().x, 0.0));
 							// Both physics_states get their share of x-axis momentum, based on mass
 							this.impulse_momentum(new Vector(total_momentum.x * this_mass_per, 0.0));
 							physics_state.impulse_momentum(new Vector(total_momentum.x * physics_state_mass_per, 0.0));
+							*/
 							break;
 						case COLLISION_BOX_STATE.VERTICAL:
 							// Handle momentum on the y-axis
@@ -270,14 +279,16 @@ class Physics_State {
 							this.impulse_momentum(new Vector(0.0, -1.0 * this.get_momentum().y));
 							physics_state.impulse_momentum(new Vector(0.0, -1.0 * physics_state.get_momentum().y));
 							// Both physics_states get's their share of y-axis momentum, based on mass
+							
 							this.impulse_momentum(new Vector(0.0, total_momentum.y * this_mass_per));
 							physics_state.impulse_momentum(new Vector(0.0, total_momentum.y * physics_state_mass_per));
+							
 							break;
 						default:
 							Add_Debug_String("momentum_handle_switch value not recognized");
 							break;
 						}
-						
+						/*
 						// Setup friction between the two physics_states
 						var frict_diff = this.velocity.subtract(physics_state.velocity);
 
@@ -292,7 +303,7 @@ class Physics_State {
 							this.add_friction_source(this_friction_source);
 							physics_state.add_friction_source(physics_state_friction_source);
 						}
-						
+						*/
 					}
 				}
 			}

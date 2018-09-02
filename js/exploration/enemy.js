@@ -11,6 +11,19 @@ class Enemy extends Actor {
             this.health -= damage;
             if(this.health <= 0){
                 this.health = 0;
+                exploration.scene.remove_renderable(this);
+                exploration.map.remove_actor(this);
+                console.log("enemy has died");
             }
         }
+}
+class G extends Enemy {
+    constructor(position){
+        super(position, new Vector(1.0, 0.75),
+            new Animation("G", Sprite.blue), 1,
+            function(){}, 1, [
+                new Collision_Box(new Vector(1.0, 0.75),
+                    new Vector(0.0, 0.0), [1])
+            ], 5);
+    }
 }

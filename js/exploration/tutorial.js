@@ -1,4 +1,4 @@
-TUTORIAL_WIDTH = 8.0
+TUTORIAL_WIDTH = 12.0
 TUTORIAL_HEIGHT = TUTORIAL_WIDTH * canvas_dimensions.aspect_ratio.multiplier;
 
 function tutorial_viewport_update() {
@@ -16,22 +16,39 @@ var Tutorial = {
 	Viewport.set_update(tutorial_viewport_update);
     }),
     floor: new Actor(new Vector(0.0, TUTORIAL_HEIGHT - 0.3),
-		     new Vector(TUTORIAL_WIDTH, 0.3),
-		     new Animation("ground", Sprite.black), 1,
-		     function(){}, -1, [
-			 new Collision_Box(new Vector(TUTORIAL_WIDTH, 0.3),
-					     new Vector(0.0, 0.0), [-1])
-             ]),
-    tut: new Enemy(new Vector(3.0, TUTORIAL_HEIGHT - 1.7),
-                new Vector(1.0, 1.0), new Animation("en", Sprite.blue),
-                1, function(){}, 1, [
-                    new Collision_Box(new Vector(1.0, 1.0),
-                            new Vector(0.0, 0.0), [-1])
-                ])
+		    new Vector(TUTORIAL_WIDTH, 0.3),
+		    new Animation("ground", Sprite.black), 1,
+		    function(){}, -1, [
+			new Collision_Box(new Vector(TUTORIAL_WIDTH, 0.3),
+					    new Vector(0.0, 0.0), [-1])
+            ]),
+    plat1: new Actor(new Vector(3.0, TUTORIAL_HEIGHT - 1.9),
+		    new Vector(6, 0.3),
+		    new Animation("ground", Sprite.black), 1,
+		    function(){}, -1, [
+			new Collision_Box(new Vector(6, 0.3),
+					    new Vector(0.0, 0.0), [-1])
+            ]),
+    plat2: new Actor(new Vector(3.0, TUTORIAL_HEIGHT - 1.7),
+		    new Vector(6, 0.3),
+		    new Animation("ground", Sprite.black), 1,
+		    function(){}, -1, [
+			new Collision_Box(new Vector(6, 0.3),
+					    new Vector(0.0, 0.0), [-1])
+            ]),
+    plat3: new Actor(new Vector(3.0, TUTORIAL_HEIGHT - 1.7),
+		    new Vector(6, 0.3),
+		    new Animation("ground", Sprite.black), 1,
+		    function(){}, -1, [
+			new Collision_Box(new Vector(6, 0.3),
+					    new Vector(0.0, 0.0), [-1])
+            ]),
+    tut: new G(new Vector(3.0, TUTORIAL_HEIGHT - 3.7))
 };
 
 Tutorial.map.set_actors([
     jeron,
     Tutorial.floor,
+    Tutorial.plat1,
     Tutorial.tut
 ]);

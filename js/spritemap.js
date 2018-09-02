@@ -23,6 +23,7 @@ var Sprite = {
     blue: new Spritemap("blue.png"),
     arrow: new Spritemap("arrow.png"),
     zero: new Spritemap("zero.png"),
-    one: new Spritemap("one.png")
+    one: new Spritemap("one.png"),
+    jeron: new Spritemap("jeron.png")
     //: new Spritemap(".png")
 };
