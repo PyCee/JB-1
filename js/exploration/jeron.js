@@ -1,6 +1,7 @@
 var jeron_hit_state = false;
 var default_hit_knockback = new Vector(-2.5, -1.7);
 var inside_cow = false;
+var inside_lightning = false;
 
 function cow_land_callback (knockback){
     return function(){
@@ -40,11 +41,27 @@ function Jeron_Update(){
         inside_cow = false;
     }
     for(var i = 0; i < lightning_list.length; ++i){
-        if(jeron.physics_state.intersects(lightning_list[i].physics_state)){
-            jeron.take_damage(3);
-            lightning_list.splice(i, 1);
-            i -= 1;
+        if(jeron.physics_state.intersects(lightning_list[i].physics_state) &&
+            jeron_hit_state == false){
+            jeron_hit_state = true;
+            if(inside_lightning == false){
+                inside_lightning = true;
+                jeron.take_damage(3);
+            }
+            var hit_knockback = default_hit_knockback.clone();
+            jeron.physics_state.impulse_momentum(hit_knockback);
+            jeron.physics_state.add_land_callback(
+                cow_land_callback(new Vector(hit_knockback.x * -1.0, 0.0))
+            );
         }
+    }
+    for(index = 0; index < lightning_list.length; ++index){
+        if(jeron.physics_state.intersects(lightning_list[index].physics_state)){
+            break;
+        }
+    }
+    if(index == lightning_list.length && inside_lightning == true){
+        inside_lightning = false;
     }
 }
 class Jeron extends Actor {

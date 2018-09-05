@@ -3,9 +3,6 @@ var global_timeline = new Timeline();
 var last_frame_time = window.performance.now();
 var current_frame_time = 0;
 
-// Show the title scene on start
-//Path.map.set(new Vector(1.0, PATH_HEIGHT - 1.30001));
-
 // for testing
 //Path.map.set(new Vector(99.0, PATH_HEIGHT - 4.10001));
 
