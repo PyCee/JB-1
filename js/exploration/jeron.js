@@ -49,6 +49,7 @@ function Jeron_Update(){
                 jeron.take_damage(3);
             }
             var hit_knockback = default_hit_knockback.clone();
+            hit_knockback = hit_knockback.add(new Vector(-1.5, 0.0));
             jeron.physics_state.impulse_momentum(hit_knockback);
             jeron.physics_state.add_land_callback(
                 cow_land_callback(new Vector(hit_knockback.x * -1.0, 0.0))
