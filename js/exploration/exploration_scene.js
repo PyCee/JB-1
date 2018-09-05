@@ -69,16 +69,20 @@ function move_right(){
 }
 exploration.scene.user_input.add_keyboard_event("a", "press", function(){
 	move_left();
+	jeron.flip(true);
 }, true);
 exploration.scene.user_input.add_keyboard_event("a", "release", function(){
 	move_right();
 });
 exploration.scene.user_input.add_keyboard_event("d", "press", function(){
 	move_right();
+	jeron.flip(false);
 }, true);
 exploration.scene.user_input.add_keyboard_event("d", "release", function(){
 	move_left();
 });
+
+// Attack
 exploration.scene.user_input.add_keyboard_event("e", "press", function(){
 	jeron.write_binary();
 });

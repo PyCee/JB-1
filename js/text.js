@@ -1,6 +1,6 @@
 class Text extends Renderable {
-    constructor (position, font_height, text, color) {
-        super(position, new Vector(0.0, 0.0), null, 99);
+    constructor (position, font_height, text, color, draw_priority=99) {
+        super(position, new Vector(0.0, 0.0), null, draw_priority);
         this.font_height = font_height;
         this.text = text;
         this.color = color;
@@ -8,8 +8,10 @@ class Text extends Renderable {
     set_text (text){
         this.text = text;
     }
+    /*
     hide(){}
     show(){}
+    */
     set_animation(){}
     update_animation(){}
     display () {}

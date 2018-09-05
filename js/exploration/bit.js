@@ -1,10 +1,17 @@
 var bit_list = [];
+var BIT_LIFETIME = 1.0;
+
 function Check_Bits(){
     for(var i = 0; i < bit_list.length; ++i){
+        if(bit_list[i].life_timeline.get_elapsed_time() > BIT_LIFETIME){
+            exploration.scene.remove_renderable(bit_list[i]);
+            exploration.map.remove_actor(bit_list[i]);
+            bit_list[i] = null;
+            continue;
+        }
         for(var j = 0; j < exploration.map.actors.length; ++j){
             if(bit_list[i].physics_state.intersects(exploration.map.actors[j].physics_state) &&
                 exploration.map.actors[j] instanceof Enemy){
-                    console.log("bit hits enemy");
                     exploration.map.actors[j].take_damage(1);
                     exploration.scene.remove_renderable(bit_list[i]);
                     exploration.map.remove_actor(bit_list[i]);
@@ -33,5 +40,6 @@ class Bit extends Actor {
             ]);
         bit_list.push(this);
         this.impulse_force(new Vector(0.0, -FORCE_DUE_TO_GRAVITY));
+        this.life_timeline = new Timeline();
     }
 }

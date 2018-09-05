@@ -8,7 +8,7 @@ var Active_Sequence_List = {
 };
 class Sequence {
     constructor () {
-			this.timeline = new Timeline();
+			this.timeline = new Timeline(false);
 			this.lerps = [];
 			this.last_update_time = 0;
 		}
@@ -42,9 +42,11 @@ class Sequence {
     }
     start () {
 		Active_Sequence_List.sequences.push(this);
+		this.timeline.start();
     }
 }
 class Lerp {
+	// todo fix lerp with physics collision changes
     constructor (t1, t2, delta_v, renderables) {
 		this.t1 = t1;
 		this.t2 = t2;
