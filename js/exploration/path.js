@@ -273,7 +273,7 @@ var Path = {
         Path.boss_health--;
     },
     pillar_cow: [],
-    pillar_cow_health: 100,
+    pillar_cow_health: 150,
     update_boss_state: function(state){
         var new_cow = null;
         if(state==0){
