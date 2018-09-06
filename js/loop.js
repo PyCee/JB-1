@@ -4,10 +4,10 @@ var last_frame_time = window.performance.now();
 var current_frame_time = 0;
 
 // for testing
-Path.map.set(new Vector(99.0, PATH_HEIGHT - 4.10001));
+//Path.map.set(new Vector(99.0, PATH_HEIGHT - 4.10001));
 
 // show stage
-//Stage.map.set(new Vector(0.0, STAGE_HEIGHT - 1.0001))
+Stage.map.set(new Vector(0.0, STAGE_HEIGHT - 1.0001))
 
 exploration.scene.show();
 
