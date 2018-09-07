@@ -8,7 +8,6 @@ var variable_view_end = 98;
 var max_horizontal = 104;
 var max_horizontal_achieved = 0.0;
 
-var FOURTH_BOSS_HEALTH = 4;
 
 function path_viewport_update(){
     var horizontal_center = jeron.position.x + jeron.size.x/2;
@@ -273,7 +272,7 @@ var Path = {
         Path.boss_health--;
     },
     pillar_cow: [],
-    pillar_cow_health: 150,
+    pillar_cow_health: 120,
     update_boss_state: function(state){
         var new_cow = null;
         if(state==0){
