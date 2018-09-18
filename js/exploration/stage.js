@@ -109,23 +109,23 @@ var Stage = {
         new Vector(4.5, 1.3)),
 
     gwen_text: new World_Text(new Vector(3.6, STAGE_HEIGHT - 2.75),
-        0.25, "Happy Birthday Erik!", "#000000", 2),
+        0.15, "Alles Gute zum Geburtstag Erik!", "#000000", 2),
     gabe_text: new World_Text(new Vector(3.45, STAGE_HEIGHT - 3.0),
         0.65, "ERIK!", "#000000", 4),
     denise_text: new World_Text(new Vector(0.85, STAGE_HEIGHT - 2.65),
-        0.21, "Erik, that cow stole your cake!", "#000000", 2),
+        0.15, "Erik, diese Kuh hat deinen Kuchen gestohlen!", "#000000", 2),
     julia_text: new World_Text(new Vector(3.6, STAGE_HEIGHT - 2.4),
-        0.3, "Go get it!", "#000000", 2),
+        0.2, "Holen Sie es!", "#000000", 2),
     doug_text: new World_Text(new Vector(0.35, STAGE_HEIGHT - 2.65),
-        0.21, "Move using the 'a' and 'd' keys!", "#000000", 2),
+        0.15, "Bewegen Sie mit den Tasten 'a' und 'd'!", "#000000", 2),
 
     end_text_box: new Text_Box(new Vector(1.3, 3.5),
         new Vector(4.5, 1.3)),
 
     end_text: new World_Text(new Vector(1.7, STAGE_HEIGHT - 2.95),
-        0.21, "Happy birthday to you...", "#000000", 2),
+        0.21, "Alles Gute zum Geburstag...", "#000000", 2),
     final_end_text: new World_Text(new Vector(1.7, STAGE_HEIGHT - 2.4),
-        0.15, "(the game is over)", "#000000", 2)
+        0.15, "(Das Spiel ist vorbei)", "#000000", 2)
 };
 
 var birthday_seq = new Sequence();
@@ -190,13 +190,15 @@ ending_seq.add_event(0.0, function(){
 });
 ending_seq.add_event(2.5, function(){
     Stage.end_text.font_height *= 1.2;
-    Stage.end_text.text = "Happy birthday to YOU...";
+    Stage.end_text.text = "Alles Gute zum Geburstag...";
 });
 ending_seq.add_event(5.5, function(){
-    Stage.end_text.text = "Happy birthday dear Erik~";
+    Stage.end_text.font_height *= 0.7;
+    Stage.end_text.text = "Herzlichen Glückwunsch, lieber Erik ~";
 });
 ending_seq.add_event(9.0, function(){
-    Stage.end_text.text = "Happy birthday to you.";
+    Stage.end_text.font_height /= 0.7;
+    Stage.end_text.text = "Alles Gute zum Geburstag.";
 });
 ending_seq.add_event(14.0, function(){
     Stage.final_end_text.show();
