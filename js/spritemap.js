@@ -27,11 +27,13 @@ var Sprite = {
     zero: new Spritemap("zero.png"),
     one: new Spritemap("one.png"),
     jeron: new Spritemap("jeron.png"),
+    erik: new Spritemap("erik.png"),
     cow: new Spritemap("cow.png"),
     lightning: new Spritemap("lightning.png"),
     grass: new Spritemap("grass.png"),
     cloud: new Spritemap("cloud.png"),
     stage: new Spritemap("stage.png"),
+    erik_stage: new Spritemap("erik_stage.png"),
     cake: new Spritemap("cake.png"),
     text_box: new Spritemap("text_box.png")
     //: new Spritemap(".png")

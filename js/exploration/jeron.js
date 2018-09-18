@@ -68,7 +68,7 @@ function Jeron_Update(){
 class Jeron extends Actor {
     constructor(position){
         super(position, new Vector(0.25, 1.0),
-            new Animation("jeron", Sprite.jeron), 1,
+            new Animation("jeron", Sprite.erik), 1,
             function(delta_s){}, 1, [
                 new Collision_Box(new Vector(0.25, 1.0),
                         new Vector(0.0, 0.0), [0])

@@ -26,7 +26,7 @@ class Text_Box extends Actor {
 var Stage = {
     map: new Map(STAGE_WIDTH, new Actor(new Vector(0.0, 0.0),
             new Vector(STAGE_WIDTH, STAGE_HEIGHT),
-            new Animation("bg", Sprite.stage)), function(){
+            new Animation("bg", Sprite.erik_stage)), function(){
 
         Viewport.set_update(stage_viewport_update);
 
@@ -103,18 +103,18 @@ var Stage = {
         new Vector(3.0, 1.5)),
     denise_text_box: new Text_Box(new Vector(0.6, 2.9),
         new Vector(4.5, 1.3)),
-    julia_text_box: new Text_Box(new Vector(4.5, 2.5),
+    julia_text_box: new Text_Box(new Vector(3.45, 2.5),
         new Vector(2.0, 1.0)),
     doug_text_box: new Text_Box(new Vector(0.15, 2.9),
         new Vector(4.5, 1.3)),
 
     gwen_text: new World_Text(new Vector(3.6, STAGE_HEIGHT - 2.75),
-        0.25, "Happy Birthday Jeron!", "#000000", 2),
+        0.25, "Happy Birthday Erik!", "#000000", 2),
     gabe_text: new World_Text(new Vector(3.45, STAGE_HEIGHT - 3.0),
-        0.65, "JERON!", "#000000", 4),
+        0.65, "ERIK!", "#000000", 4),
     denise_text: new World_Text(new Vector(0.85, STAGE_HEIGHT - 2.65),
-        0.21, "Jeron, that cow stole your cake!", "#000000", 2),
-    julia_text: new World_Text(new Vector(4.63, STAGE_HEIGHT - 2.37),
+        0.21, "Erik, that cow stole your cake!", "#000000", 2),
+    julia_text: new World_Text(new Vector(3.6, STAGE_HEIGHT - 2.4),
         0.3, "Go get it!", "#000000", 2),
     doug_text: new World_Text(new Vector(0.35, STAGE_HEIGHT - 2.65),
         0.21, "Move using the 'a' and 'd' keys!", "#000000", 2),
@@ -193,7 +193,7 @@ ending_seq.add_event(2.5, function(){
     Stage.end_text.text = "Happy birthday to YOU...";
 });
 ending_seq.add_event(5.5, function(){
-    Stage.end_text.text = "Happy birthday dear Jeron~";
+    Stage.end_text.text = "Happy birthday dear Erik~";
 });
 ending_seq.add_event(9.0, function(){
     Stage.end_text.text = "Happy birthday to you.";
